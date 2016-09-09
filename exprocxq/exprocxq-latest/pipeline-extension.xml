@@ -1,0 +1,104 @@
+<p:library xmlns:p ="http://www.w3.org/ns/xproc" 
+	   xmlns:ext ="http://xproc.net/xproc/ext"
+                    xmlns:xproc = "http://xproc.net/xproc"
+                    name="ext-extension-library">
+	<p:declare-step type="ext:pre" xproc:bindings="all" xproc:support="true">
+		<p:input port="source" primary="true" sequence="true" select="/"/>
+		<p:output port="result" primary="true" sequence="true" select="/"/>
+	</p:declare-step>
+	
+	<p:declare-step type="ext:post" xproc:support="true">
+		<p:input port="source" primary="true" sequence="true" select="/"/>
+		<p:output port="stdout" primary="true" sequence="true" select="/"/>
+	</p:declare-step> 
+	
+	<p:declare-step type="ext:xproc" xproc:use-function="xproc:run-step" xproc:support="true">
+		<p:input port="source" primary="true" select="/"/>
+		<p:input port="pipeline" primary="false" select="/"/>
+		<p:input port="bindings" primary="false" select="/"/>
+		<p:output port="result" primary="true"/>
+		<p:option name="dflag" select="'0'"/>
+		<p:option name="tflag" select="'0'"/>
+    </p:declare-step>
+    
+	<p:declare-step type="ext:xslt-client" xproc:support="true">
+		<p:input port="source" sequence="true" primary="true" select="/"/>
+		<p:output port="result" primary="true" select="/"/>
+		<p:option name="xsl-uri" required="true"/>
+	</p:declare-step>
+	
+	<p:declare-step type="ext:get-post-data" xproc:support="false">
+		<p:output port="result" primary="true" select="/"/>
+	</p:declare-step>
+	<p:declare-step type="ext:get-request-parameter" xproc:support="false">
+		<p:output port="result" primary="true" select="/"/>
+		<p:option name="request-parameter-name" required="true"/>
+		<p:option name="request-parameter-element-name"/>
+	</p:declare-step>
+	<p:declare-step type="ext:xslt-optional" xproc:support="true">
+		<p:input port="source" sequence="true" primary="true" select="/"/>
+		<p:output port="result" primary="true" select="/"/>
+		<p:option name="xslURI" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:authenticate" xproc:support="false">
+		<p:output port="result" primary="true" select="/"/>
+		<p:option name="collection-uri" required="true"/>
+		<p:option name="user-id" required="true"/>
+		<p:option name="password" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:create-collection" xproc:support="false">
+		<p:output port="result" primary="true" select="/"/>
+		<p:option name="target-collection-uri" required="true"/>
+		<p:option name="new-collection" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:create-resource" xproc:support="true">
+		<p:input port="source" sequence="true" primary="true" select="/"/>
+		<p:output port="result" primary="true"/>
+		<p:option name="collection-uri" required="true"/>
+		<p:option name="resource-name" required="true"/>
+		<p:option name="mime-type"/>
+	</p:declare-step>
+	<p:declare-step type="ext:copy-collection" xproc:support="false">
+		<p:option name="source-collection-uri" required="true"/>
+		<p:option name="target-collection-uri" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:copy-resource" xproc:support="false">
+		<p:option name="resource-uri" required="true"/>
+		<p:option name="target-collection-uri" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:move-collection" xproc:support="false">
+		<p:option name="source-collection-uri" required="true"/>
+		<p:option name="target-collection-uri" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:move-resource" xproc:support="false">
+		<p:option name="resource-uri" required="true"/>
+		<p:option name="target-collection-uri" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:remove-collection" xproc:support="false">
+		<p:option name="collection-uri" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:remove-resource" xproc:support="false">
+		<p:option name="resource-uri" required="true"/>
+	</p:declare-step>
+	<p:declare-step type="ext:create-user" xproc:support="false">
+		<p:option name="user-id" required="true"/>
+		<p:option name="password" required="true"/>
+		<p:option name="groups" required="true"/>
+		<p:option name="home-collection-uri" required="true"/>
+	</p:declare-step>    
+	<p:declare-step type="ext:modify-user" xproc:support="false">
+		<p:option name="user-id" required="true"/>
+		<p:option name="password"/>
+		<p:option name="groups" required="true"/>
+		<p:option name="home-collection-uri"/>
+	</p:declare-step>
+	<p:declare-step type="ext:delete-user" xproc:support="false">
+		<p:option name="user-id" required="true"/>
+		<p:option name="password"/>
+		<p:option name="groups"/>
+		<p:option name="home-collection-uri"/>
+	</p:declare-step>
+	<p:declare-step type="ext:list-child-collections" xproc:support="false">
+		<p:option name="collection-uri" required="true"/>
+    </p:declare-step>
+</p:library>
